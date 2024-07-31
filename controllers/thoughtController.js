@@ -44,6 +44,9 @@ const thoughtController = {
     deleteThought: async (req, res) => {
         try {
             const deletedThought = await Thought.findByIdAndDelete(req.params.id);
+            const user = await User.findById(req.body.userId);
+            user.thoughts.pull(deletedThought._id);
+            await user.save();
             res.json(deletedThought);
         } catch (err) {
             res.status(400).json(err);

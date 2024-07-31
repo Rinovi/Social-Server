@@ -41,7 +41,7 @@ const userController = {
         try {
             const deletedUser = await User.findByIdAndDelete(req.params.id);
             // BONUS: Remove user's associated thoughts
-            await Thought.deleteMany({ _id: { $in: deletedUser.thoughts } });
+            // await Thought.deleteMany({ _id: { $in: deletedUser.thoughts } });
             res.json(deletedUser);
         } catch (err) {
             res.status(400).json(err);
